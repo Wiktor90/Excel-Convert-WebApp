@@ -1,7 +1,81 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
-        <h1>Hello World</h1>
+        <meta charset="utf-8">
+        <meta name="author" content="Wiktor Witkowski">
+        <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
+        <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <![endif]-->
+        <title>Odo Correction App</title>
+
+        <link rel="stylesheet" href="{% static 'odo_correction/main.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
     </head>
-    <body></body>
+
+    <body>
+        <header>
+
+            <div class="logo">
+                <h1>
+                    <span style="color:#cc0000">FleetWave</span> - Odometer Correction App
+                </h1>
+                <a hfref="#"><img src="{% static 'odo_correction/img/Falck-logo.jpg' %}" alt="Falck-logo"></a>
+            </div>
+
+            <div class="bar"></div>
+
+        </header>
+
+        <main>
+
+            <section>
+                <div class="upload-freme">
+                    <h1>Upload .xlsx file to transform</h1>
+                    <div class="file-upload">
+                        <form action="upload" method="POST" enctype="multipart/form-data">
+                            <input class="file-upload__input" type="file" name="excle-file" id="excle-file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                            <button class="file-upload__button" type="button">Choose File</button>
+                            <span class="file-upload__label"></span>
+                            <input class="file-upload__submit" type="submit" value="Upload File">
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <script>
+            Array.prototype.forEach.call(
+            document.querySelectorAll(".file-upload__button"),
+            function(button) {
+                const hiddenInput = button.parentElement.querySelector(
+                ".file-upload__input"
+                );
+                const label = button.parentElement.querySelector(".file-upload__label");
+                const defaultLabelText = "No file selected";
+
+                // Set default text for label
+                label.textContent = defaultLabelText;
+                label.title = defaultLabelText;
+
+                button.addEventListener("click", function() {
+                hiddenInput.click();
+                });
+
+                hiddenInput.addEventListener("change", function() {
+                const filenameList = Array.prototype.map.call(hiddenInput.files, function(
+                    file
+                ) {
+                    return file.name;
+                });
+
+                label.textContent = filenameList.join(", ") || defaultLabelText;
+                label.title = label.textContent;
+                });
+            }
+            );
+        </script>
+    </body>
 </html>
