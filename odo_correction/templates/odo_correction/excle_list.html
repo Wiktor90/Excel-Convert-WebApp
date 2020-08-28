@@ -11,7 +11,8 @@
             <tr>
                 <th>Country</th>
                 <th>Corrected File</th>
-                <th>Download</th>
+                <th>Download Excle</th>
+                <th>Delete from DB</th>
             </tr>
         </thead>
 
@@ -22,6 +23,12 @@
                     <td>{{ f.file.name }}</td>
                     <td>
                         <a href="{{ f.file.url }}" class="btn btn-primary btn-sm">Download</a>
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'excle_delete' f.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}

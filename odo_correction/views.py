@@ -6,16 +6,19 @@ from .models import Excel
 
 
 def base_site(request):
-    return render(request, 'odo_correction/base.html', {})
+    return render(request, 'odo_correction/base.html')
 
-def upload(request):
-    context ={}
-    if request.method == 'POST':
-        uploaded_file = request.FILES['document']
-        fs = FileSystemStorage()
-        name = fs.save(uploaded_file.name, uploaded_file)
-        context['url'] = fs.url(name)
-    return render(request, 'odo_correction/upload.html', context)
+def info(request):
+    return render(request, 'odo_correction/info.html')
+
+# def upload(request):
+#     context ={}
+#     if request.method == 'POST':
+#         uploaded_file = request.FILES['document']
+#         fs = FileSystemStorage()
+#         name = fs.save(uploaded_file.name, uploaded_file)
+#         context['url'] = fs.url(name)
+#     return render(request, 'odo_correction/upload.html', context)
 
 def excle_list(request):
     files = Excel.objects.all()
@@ -31,3 +34,9 @@ def excle_upload(request):
         form = ExcleForm()
 
     return render(request, 'odo_correction/excle_upload.html', {'form':form})
+
+def excle_delete(request, pk):
+    if request.method == 'POST':
+        file = Excel.objects.get(pk=pk)
+        file.delete()
+    return redirect('excle_list')
