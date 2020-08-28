@@ -1,0 +1,10 @@
+{% extends 'odo_correction/base.html' %}
+
+{% block content %}
+    <h2>Upload</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="document" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        <button type="submit">Upload File</button>
+    </form>
+{% endblock %}

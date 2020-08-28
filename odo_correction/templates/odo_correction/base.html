@@ -1,81 +1,42 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="author" content="Wiktor Witkowski">
-        <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
-        <!--[if lt IE 9]>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <![endif]-->
-        <title>Odo Correction App</title>
-
-        <link rel="stylesheet" href="{% static 'odo_correction/main.css' %}">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
-    </head>
-
-    <body>
-        <header>
-
-            <div class="logo">
-                <h1>
-                    <span style="color:#cc0000">FleetWave</span> - Odometer Correction App
-                </h1>
-                <a hfref="#"><img src="{% static 'odo_correction/img/Falck-logo.jpg' %}" alt="Falck-logo"></a>
-            </div>
-
-            <div class="bar"></div>
-
-        </header>
-
-        <main>
-
-            <section>
-                <div class="upload-freme">
-                    <h1>Upload .xlsx file to transform</h1>
-                    <div class="file-upload">
-                        <form action="upload" method="POST" enctype="multipart/form-data">
-                            <input class="file-upload__input" type="file" name="excle-file" id="excle-file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                            <button class="file-upload__button" type="button">Choose File</button>
-                            <span class="file-upload__label"></span>
-                            <input class="file-upload__submit" type="submit" value="Upload File">
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-        
-        <script>
-            Array.prototype.forEach.call(
-            document.querySelectorAll(".file-upload__button"),
-            function(button) {
-                const hiddenInput = button.parentElement.querySelector(
-                ".file-upload__input"
-                );
-                const label = button.parentElement.querySelector(".file-upload__label");
-                const defaultLabelText = "No file selected";
-
-                // Set default text for label
-                label.textContent = defaultLabelText;
-                label.title = defaultLabelText;
-
-                button.addEventListener("click", function() {
-                hiddenInput.click();
-                });
-
-                hiddenInput.addEventListener("change", function() {
-                const filenameList = Array.prototype.map.call(hiddenInput.files, function(
-                    file
-                ) {
-                    return file.name;
-                });
-
-                label.textContent = filenameList.join(", ") || defaultLabelText;
-                label.title = label.textContent;
-                });
-            }
-            );
-        </script>
-    </body>
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'odo_correction/main.css' %}">
+  <title>{% block title %}Fleet Odo App{% endblock %}</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color:#decdc3">
+    <div class="container">
+      <a class="navbar-brand" href="#">Odometer Correction Tool</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
 </html>

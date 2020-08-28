@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.excel_upload, name='excel_upload')
+    path('', views.base_site, name='base_site'),
+    path('upload/', views.upload, name='upload'),
 ]
