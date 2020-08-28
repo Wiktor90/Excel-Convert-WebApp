@@ -1,0 +1,30 @@
+{% extends 'odo_correction/base.html' %}
+
+{% block content %}
+    <h2> Corrected ODO file(s)</h2>
+    <p>
+        <a href="{% url 'excle_upload'%}" class="btn btn-primary">Upload more files</a>
+    </p>
+
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Corrected File</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for f in files %}
+                <tr>
+                    <td>{{ f.country }}</td>
+                    <td>{{ f.file.name }}</td>
+                    <td>
+                        <a href="{{ f.file.url }}" class="btn btn-primary btn-sm">Download</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

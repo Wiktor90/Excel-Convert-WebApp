@@ -1,0 +1,11 @@
+{% extends 'odo_correction/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2> Upload .xlsx ODO file</h2>
+    <form method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Upload File</button>
+    </form>
+{% endblock %}
