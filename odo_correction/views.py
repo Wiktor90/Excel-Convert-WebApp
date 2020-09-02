@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-
 from .forms import ExcleForm
 from .models import Excel
+
 
 
 def base_site(request):
@@ -11,32 +10,31 @@ def base_site(request):
 def info(request):
     return render(request, 'odo_correction/info.html')
 
-# def upload(request):
-#     context ={}
-#     if request.method == 'POST':
-#         uploaded_file = request.FILES['document']
-#         fs = FileSystemStorage()
-#         name = fs.save(uploaded_file.name, uploaded_file)
-#         context['url'] = fs.url(name)
-#     return render(request, 'odo_correction/upload.html', context)
-
-def excle_list(request):
+def excel_list(request):
     files = Excel.objects.all()
-    return render(request, 'odo_correction/excle_list.html', {'files':files})
+    return render(request, 'odo_correction/excel_list.html', {'files':files})
 
-def excle_upload(request):
+def excel_upload(request):
     if request.method =='POST':
         form = ExcleForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('excle_list')
+            return redirect('excel_list')
     else:
         form = ExcleForm()
+    return render(request, 'odo_correction/excel_upload.html', {'form':form})
 
-    return render(request, 'odo_correction/excle_upload.html', {'form':form})
+def excel_correction(request, pk):
+    ex = Excel.objects.get(pk=pk)
+    df = ex.odo()
+    ex.save_excel(df)
+    ex.corrected = True
+    ex.save()
 
-def excle_delete(request, pk):
+    return redirect('excel_list')
+
+def excel_delete(request, pk):
     if request.method == 'POST':
-        file = Excel.objects.get(pk=pk)
-        file.delete()
-    return redirect('excle_list')
+        ex = Excel.objects.get(pk=pk)
+        ex.delete()
+    return redirect('excel_list')
