@@ -7,9 +7,9 @@ import math
 class Excel(models.Model):
     country = models.CharField(default= "", max_length = 20)
     file = models.FileField(upload_to ='excel')
-    corrected = models.BooleanField(default=False)
-    file_end = models.BooleanField(default=False)
-    file_content = models.BooleanField(default=False)
+    corrected = models.BooleanField(default=False) # pandas correction status
+    file_end = models.BooleanField(default=False) # format checker
+    file_content = models.BooleanField(default=False) # df required columns checker
 
 
     def __str__(self):
