@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .forms import ExcleForm
 from .models import Excel
 
@@ -23,7 +24,7 @@ def excel_upload(request):
                 form.save()
                 return redirect('excel_list')
             else:
-                print('BAAAAD FORMAT!!!')
+                messages.error(request, f'ERROR: Format of uploaded file: {ex.name} is NOT supported !')
                 return render(request, 'odo_correction/excel_upload.html', {'form':form})
     else:
         form = ExcleForm()

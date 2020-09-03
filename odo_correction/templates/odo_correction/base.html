@@ -24,6 +24,11 @@
     </div>
   </nav>
   <div class="container">
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-danger" role="alert">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
     <div class="row justify-content-center">
       <div class="col-lg-10 col-md-12">
         <div class="card mb-4">
