@@ -18,8 +18,13 @@ def excel_upload(request):
     if request.method =='POST':
         form = ExcleForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('excel_list')
+            ex = request.FILES['file']
+            if ex.name.lower().endswith(('.xlsx', '.xls', '.csv')):
+                form.save()
+                return redirect('excel_list')
+            else:
+                print('BAAAAD FORMAT!!!')
+                return render(request, 'odo_correction/excel_upload.html', {'form':form})
     else:
         form = ExcleForm()
     return render(request, 'odo_correction/excel_upload.html', {'form':form})
