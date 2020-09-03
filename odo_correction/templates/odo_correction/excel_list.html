@@ -23,10 +23,14 @@
                     <td>{{ f.country }}</td>
                     <td>{{ f.file.name }}</td>
                     <td>
-                        <form method="post" action="{% url 'excel_correction' f.pk %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success btn-sm">Correct</button>
-                        </form>
+                        {% if f.corrected == False %}
+                            <form method="post" action="{% url 'excel_correction' f.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-sm">Correct</button>
+                            </form>
+                        {% else %}
+                            <button type="button" class="btn btn-secondary btn-sm" disabled>Corrected</button>
+                        {% endif %}
                     </td>
                     <td>
                         <a href="{{ f.file.url }}" class="btn btn-primary btn-sm">Download</a>

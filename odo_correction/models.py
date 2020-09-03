@@ -21,9 +21,9 @@ class Excel(models.Model):
 
 
     def save_excel(self, dataframe):
-         excelWriter = pd.ExcelWriter(self.file.path)
-         dataframe.to_excel(excelWriter, index=False)
-         excelWriter.save()
+        excelWriter = pd.ExcelWriter(self.file.path)
+        dataframe.to_excel(excelWriter, index=False)
+        excelWriter.save()
 
 
     def odo(self):
@@ -59,7 +59,11 @@ class Excel(models.Model):
 
 
     def columns_check(self): # columns check
-        df = pd.read_excel(self.file.path)
+        if self.file.name.lower().endswith(('.xlsx', '.xls')):
+            df = pd.read_excel(self.file.path)
+        else:
+            df = pd.read_csv(self.file.path)
+
         cols_in_files = [col for col in df.columns]
         mandatory_cols = ['TRANSACTION_DATE_FW','TRANSACTION_TIME_FW','VEHICLE_ID_FW','ODOMETER_FW']
         for col in mandatory_cols:

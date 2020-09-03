@@ -39,7 +39,7 @@ def excel_correction(request, pk):
         ex.save()
         return redirect('excel_list')
     else:
-        messages.error(request, f'ERROR: File: {ex.file.name} missing required column name(s) and was removed from DB.')
+        messages.error(request, f'ERROR: File: {ex.file.name} missing required column name(s) and was removed from Data Base.')
         ex.delete()
         return redirect('excel_list')
 
