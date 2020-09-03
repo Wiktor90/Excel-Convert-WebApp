@@ -8,13 +8,18 @@ class Excel(models.Model):
     country = models.CharField(default= "", max_length = 20)
     file = models.FileField(upload_to ='excel')
     corrected = models.BooleanField(default=False)
+    file_end = models.BooleanField(default=False)
+    file_content = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.file.name
     
+
     def delete(self, *args, **kwargs):
         self.file.delete()
         super().delete(*args, **kwargs)
+
 
     def save_excel(self, dataframe):
          excelWriter = pd.ExcelWriter(self.file.path)
@@ -56,6 +61,26 @@ class Excel(models.Model):
                 
         df_corrected.reset_index(inplace=True)
         df_corrected.rename(columns = {'index':'VEHICLE_ID_FW'}, inplace = True)
-
         return df
-        
+
+
+    def format_check(self): # file format check
+        if self.file.name.lower().endswith(('.xlsx', '.xls', '.csv')):
+            self.file_end = True
+            return self.file_end
+        else:
+            return self.file_end
+
+
+    def columns_check(self): # columns check
+        df = pd.read_excel(self.file.path)
+        cols_in_files = [col for col in df.columns]
+        mandatory_cols = ['TRANSACTION_DATE_FW','TRANSACTION_TIME_FW','VEHICLE_ID_FW','ODOMETER_FW']
+        for col in mandatory_cols:
+            if col in cols_in_files:
+                pass
+            else:
+                self.file_content = False
+                return self.file_content        
+        self.file_content = True
+        return self.file_content

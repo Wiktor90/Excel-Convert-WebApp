@@ -30,7 +30,6 @@ def excel_correction(request, pk):
     ex.save_excel(df)
     ex.corrected = True
     ex.save()
-
     return redirect('excel_list')
 
 def excel_delete(request, pk):
