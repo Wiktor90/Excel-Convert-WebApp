@@ -14,6 +14,7 @@
                 <th>Correct File</th>
                 <th>Download Excle</th>
                 <th>Delete from DB</th>
+                <th>Status</th>
             </tr>
         </thead>
 
@@ -26,20 +27,31 @@
                         {% if f.corrected == False %}
                             <form method="post" action="{% url 'excel_correction' f.pk %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-success btn-sm">Correct</button>
+                                <button type="submit" class="btn btn-success">Correct</button>
                             </form>
                         {% else %}
-                            <button type="button" class="btn btn-secondary btn-sm" disabled>Corrected</button>
+                            <button type="button" class="btn btn-secondary" disabled>Correct</button>
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ f.file.url }}" class="btn btn-primary btn-sm">Download</a>
+                        <a href="{{ f.file.url }}" class="btn btn-primary">Download</a>
                     </td>
                     <td>
                         <form method="post" action="{% url 'excel_delete' f.pk %}">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                    </td>
+                    <td>
+                        {% if f.corrected == False %}
+                            <span style="color: Mediumslateblue; font-size: 20px;">
+                                <i class="far fa-square"></i>
+                            </span>
+                        {% else %}
+                            <span style="color: Limegreen; font-size: 20px;">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
