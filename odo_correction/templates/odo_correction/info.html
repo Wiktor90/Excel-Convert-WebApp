@@ -1,17 +1,62 @@
 {% extends 'odo_correction/base.html' %}
+{% load static %}
 
 {% block content %}
-    <h2>Instructions</h2>
+
+    <h1>Instruction</h1>
+
+    <h4>1. Required file format (extension).</h4>
+    <p> 
+    Only Excel files with <span style="color:green; font-weight: 700;">.xlsx, .xls</span> format extension or 
+    <span style="color:green; font-weight: 700;">.csv file</span> can be imported into the application. 
+    Any other type of file format is ignored. If you try to upload a not operand format, 
+    an error message will be displayed.
+    </p>
+
+    <h4>2. Required file content</h4>
+    <p> 
+    Each file imported into the application (in the allowed format) <span style="color:red; font-weight: 700;">must contain</span> the following columns:
+    </p>
+    <ul>
+        <li>VEHICLE_ID_FW</li>
+        <li>ODOMETER_FW</li>
+        <li>TRANSACTION_DATE_FW
+            <span style="color: gray; font-style: italic;"> (preferred format: 21-06-20)</span></li>
+        <li>TRANSACTION_TIME_FW</li>
+    </ul>
+    <div class="thumbnail">
+        <img src="{% static 'odo_correction/img/odo-cont.png' %}" class="img-fluid" alt="">
+    </div>
+
+    <h4>3. Table Columns & Buttons descriptions on File-List.</h4>
+    <h5>Table Columns:</h5>
+    <ul>
+        <li>Country – shows current country selection from drop-dawn in upload section</li>
+        <li>File Name – shows name of uploaded file</li>
+        <li>Correct File / Download Excel / Delete File – include actions buttons</li>
+        <li>Status – gray mark – file is not corrected; green mark – file is corrected, ready to upload</li>
+    </ul>
+
+    <h5>Buttons:</h5>
+    <button type="button" class="btn btn-success">Correct</button>
+    <button type="button" class="btn btn-secondary" disabled>Correct</button>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultrices leo non feugiat tristique. Maecenas libero dui, mollis vel ornare quis, eleifend semper tortor. Nam felis enim, elementum auctor nibh et, cursus faucibus nunc. Phasellus vel sollicitudin tortor, ac pellentesque erat. Sed dignissim quam non sem vestibulum hendrerit. Duis lorem velit, dictum feugiat placerat ut, malesuada id ex. Nunc porttitor lectus justo, id tincidunt erat ultrices a. Vestibulum pretium vitae nisl sed lacinia. Aliquam sagittis sit amet eros et auctor. Nam fringilla neque lorem, ultricies finibus ipsum vehicula vitae. Aliquam non pharetra est, id condimentum odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed vel porta enim.
+    Correct – green (active) – clicking on this button is running the correction script in back-end. 
+    Site is loading then. During loading any other post/request action are not recommended. 
+    When script finish work, site will refresh automatically and you can see that buttons is - gray (disabled). 
+    You can also find green mark in status column, which means that file is already corrected.
     </p>
+
+    <button type="button" class="btn btn-primary">Download</button>
     <p>
-        Donec in erat vel libero posuere viverra. Fusce consequat molestie nunc, pulvinar varius leo. Aliquam erat volutpat. Donec consectetur auctor laoreet. Pellentesque nunc nisi, gravida in lacinia ac, eleifend et velit. Sed eu quam vitae diam molestie porttitor eget vitae ligula. Mauris quis consequat magna, ut molestie justo.
+    Download – clicking on this button downloading the file on your local machine. 
+    <span style="font-weight: 700;">Be aware that if you click download before file correction – you will download the same file which was uploaded!</span>
     </p>
+
+    <button type="button" class="btn btn-danger">Delete</button>
     <p>
-        Aliquam eget ante eget nisl fermentum accumsan sed et ipsum. Suspendisse in auctor magna, a bibendum mauris. Nullam tristique eu neque fringilla vulputate. Fusce vel tempor sapien, ut aliquam justo. Praesent ornare eget ante nec iaculis. Curabitur euismod arcu sit amet felis hendrerit egestas. Nam viverra et metus at hendrerit. Fusce elementum at enim a egestas. Nunc eu maximus lectus. Nunc sodales, lorem scelerisque accumsan ullamcorper, massa massa scelerisque massa, et condimentum tortor diam ac justo. Pellentesque finibus dolor mauris, non luctus dolor sagittis in. Integer mollis lacus sit amet ullamcorper viverra. Nulla purus velit, commodo in malesuada vitae, auctor eget velit. Suspendisse nisi tortor, dignissim vel semper in, vulputate vel eros. Maecenas bibendum a enim ac euismod.
+    Delete – clicking on this button deleting current record from list and what is more important from the DataBase. 
+    <span style="color:green; font-weight: 700;">Is highly recommended to delete items after correction to save space on the server.</span>
     </p>
-    <p>   
-        Suspendisse hendrerit, lorem non semper dapibus, urna purus condimentum sapien, id rutrum lectus metus at metus. Vestibulum id metus id metus sollicitudin mattis a at augue. In eget est sit amet purus egestas hendrerit. Nulla quis lectus scelerisque, consequat libero sit amet, lacinia felis. Aliquam luctus, ipsum non maximus tristique, urna ante posuere elit, vel commodo risus arcu sed elit. Cras feugiat lorem eu turpis dignissim, nec porta risus condimentum. Donec molestie tristique ante eu finibus. Ut cursus semper lectus quis posuere. Nunc pellentesque, justo lobortis tincidunt euismod, risus sapien lacinia tortor, at mattis sapien nulla id erat. Morbi dapibus, nisi vitae pellentesque interdum, diam metus accumsan sem, imperdiet ornare massa dui at augue. Aliquam erat volutpat. Donec facilisis non nunc id rutrum. In sit amet turpis sed ligula consectetur vestibulum. Vivamus vehicula convallis eros. Ut mi elit, auctor non egestas non, vehicula a nunc. Sed malesuada neque vel euismod elementum.
-    </p>
+    
 {% endblock %}

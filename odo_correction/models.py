@@ -5,7 +5,12 @@ import math
 
 # Create your models here.
 class Excel(models.Model):
-    country = models.CharField(default= "", max_length = 20)
+    COUNTRY_CHOICES = (
+    ('GB','GB'),
+    ('DK', 'DK'),
+    ('WO','WorkOrder'),
+    )
+    country = models.CharField(max_length = 20, choices=COUNTRY_CHOICES ,default="gb")
     file = models.FileField(upload_to ='excel')
     corrected = models.BooleanField(default=False) # pandas correction status
     file_content = models.BooleanField(default=False) # df required columns checker
@@ -21,10 +26,14 @@ class Excel(models.Model):
 
 
     def save_excel(self, dataframe):
-        excelWriter = pd.ExcelWriter(self.file.path)
-        dataframe.to_excel(excelWriter, index=False)
-        excelWriter.save()
-
+        
+        if self.file.name.lower().endswith(('.xlsx', '.xls')):
+            excelWriter = pd.ExcelWriter(self.file.path)
+            dataframe.to_excel(excelWriter, index=False)
+            excelWriter.save()
+        else:
+            dataframe.to_csv(self.file.path, index=False)
+        
 
     def odo(self):
         if self.file.name.lower().endswith(('.xlsx', '.xls')):

@@ -1,4 +1,5 @@
-{% load static %}<!doctype html>
+{% load static %}
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -13,21 +14,29 @@
   <title>{% block title %}Fleet Odo App{% endblock %}</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color:#decdc3">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'excel_upload' %}">Odometer Correction Tool</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'info' %}">Info</a>
-          </li>
-        </ul>
-      </div>
+
+  <nav class="navbar navbar-dark bg-dark navbar-expand-sm mb-4">
+    <a class="navbar-brand" href="{% url 'excel_upload' %}">
+      <img src="{% static 'odo_correction/img/falck.jpg' %}" width="110" height="52" alt="" class="d-inline-block mr-2 align-middle"> Odometer Correction Tool
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expended="false" aria-label="Navigation"> 
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="menu" class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'excel_upload' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'info' %}">Instruction</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'excel_list' %}">File-List</a>
+        </li>
+      </ul>
     </div>
   </nav>
+
   <div class="container">
     {% if messages %}
       {% for msg in messages %}
@@ -35,7 +44,7 @@
       {% endfor %}
     {% endif %}
     <div class="row justify-content-center">
-      <div class="col-lg-10 col-md-12">
+      <div class="col-sm-12 col-md-12 col-lg-10">
         <div class="card mb-4">
           <div class="card-body">
             {% block content %}

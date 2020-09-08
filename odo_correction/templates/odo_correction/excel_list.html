@@ -1,60 +1,64 @@
 {% extends 'odo_correction/base.html' %}
-
+{% load static %}
 {% block content %}
+
     <h2> Corrected ODO file(s)</h2>
     <p>
         <a href="{% url 'excel_upload' %}" class="btn btn-primary">Upload more files</a>
     </p>
-
-    <table class="table mb-0">
-        <thead>
-            <tr>
-                <th>Country</th>
-                <th>File Name</th>
-                <th>Correct File</th>
-                <th>Download Excle</th>
-                <th>Delete from DB</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for f in files %}
+    <div class="table-responsive-lg">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>{{ f.country }}</td>
-                    <td>{{ f.file.name }}</td>
-                    <td>
-                        {% if f.corrected == False %}
-                            <form method="post" action="{% url 'excel_correction' f.pk %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-success">Correct</button>
-                            </form>
-                        {% else %}
-                            <button type="button" class="btn btn-secondary" disabled>Correct</button>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ f.file.url }}" class="btn btn-primary">Download</a>
-                    </td>
-                    <td>
-                        <form method="post" action="{% url 'excel_delete' f.pk %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                    <td>
-                        {% if f.corrected == False %}
-                            <span style="color: Mediumslateblue; font-size: 20px;">
-                                <i class="far fa-square"></i>
-                            </span>
-                        {% else %}
-                            <span style="color: Limegreen; font-size: 20px;">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        {% endif %}
-                    </td>
+                    <th scope="col">#</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">Correct File</th>
+                    <th scope="col">Download Excel</th>
+                    <th scope="col">Delete File</th>
+                    <th scope="col">Status</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+                {% for f in files %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ f.country }}</td>
+                        <td>{{ f.file.name }}</td>
+                        <td>
+                            {% if f.corrected == False %}
+                                <form method="post" action="{% url 'excel_correction' f.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success">Correct</button>
+                                </form>
+                            {% else %}
+                                <button type="button" class="btn btn-secondary" disabled>Correct</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ f.file.url }}" class="btn btn-primary">Download</a>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'excel_delete' f.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                        <td>
+                            {% if f.corrected == False %}
+                                <span style="color: gray; font-size: 20px;">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            {% else %}
+                                <span style="color: Limegreen; font-size: 20px;">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
