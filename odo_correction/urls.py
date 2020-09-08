@@ -8,5 +8,6 @@ urlpatterns = [
     path('excel/upload/', views.excel_upload, name='excel_upload'),
     path('excel/<int:pk>/', views.excel_delete, name='excel_delete'),
     path('excel_correction/<int:pk>/', views.excel_correction, name='excel_correction'),
+    path('error/', views.error, name='error'),
     
 ]

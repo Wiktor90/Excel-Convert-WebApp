@@ -4,7 +4,6 @@ from .forms import ExcleForm
 from .models import Excel
 
 
-
 def base_site(request):
     return render(request, 'odo_correction/base.html')
 
@@ -48,3 +47,7 @@ def excel_delete(request, pk):
         ex = Excel.objects.get(pk=pk)
         ex.delete()
     return redirect('excel_list')
+
+def error(request):
+    messages.error(request, f'Error')
+    return render(request, 'odo_correction/error.html')

@@ -26,14 +26,13 @@ class Excel(models.Model):
 
 
     def save_excel(self, dataframe):
-        
         if self.file.name.lower().endswith(('.xlsx', '.xls')):
             excelWriter = pd.ExcelWriter(self.file.path)
             dataframe.to_excel(excelWriter, index=False)
             excelWriter.save()
         else:
             dataframe.to_csv(self.file.path, index=False)
-        
+
 
     def odo(self):
         if self.file.name.lower().endswith(('.xlsx', '.xls')):
