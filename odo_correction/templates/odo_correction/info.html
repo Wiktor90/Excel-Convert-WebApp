@@ -5,58 +5,6 @@
 
     <h1>Instruction</h1>
 
-    <h4>1. Required file format (extension).</h4>
-    <p> 
-    Only Excel files with <span style="color:green; font-weight: 700;">.xlsx, .xls</span> format extension or 
-    <span style="color:green; font-weight: 700;">.csv file</span> can be imported into the application. 
-    Any other type of file format is ignored. If you try to upload a not operand format, 
-    an error message will be displayed.
-    </p>
 
-    <h4>2. Required file content</h4>
-    <p> 
-    Each file imported into the application (in the allowed format) <span style="color:red; font-weight: 700;">must contain</span> the following columns:
-    </p>
-    <ul>
-        <li>VEHICLE_ID_FW</li>
-        <li>ODOMETER_FW</li>
-        <li>TRANSACTION_DATE_FW
-            <span style="color: gray; font-style: italic;"> (preferred format: 21-06-20)</span></li>
-        <li>TRANSACTION_TIME_FW</li>
-    </ul>
-    <div class="thumbnail">
-        <img src="{% static 'odo_correction/img/odo-cont.png' %}" class="img-fluid" alt="">
-    </div>
-
-    <h4>3. Table Columns & Buttons descriptions on File-List.</h4>
-    <h5>Table Columns:</h5>
-    <ul>
-        <li>Country – shows current country selection from drop-dawn in upload section</li>
-        <li>File Name – shows name of uploaded file</li>
-        <li>Correct File / Download Excel / Delete File – include actions buttons</li>
-        <li>Status – gray mark – file is not corrected; green mark – file is corrected, ready to upload</li>
-    </ul>
-
-    <h5>Buttons:</h5>
-    <button type="button" class="btn btn-success">Correct</button>
-    <button type="button" class="btn btn-secondary" disabled>Correct</button>
-    <p>
-    Correct – green (active) – clicking on this button is running the correction script in back-end. 
-    Site is loading then. During loading any other post/request action are not recommended. 
-    When script finish work, site will refresh automatically and you can see that buttons is - gray (disabled). 
-    You can also find green mark in status column, which means that file is already corrected.
-    </p>
-
-    <button type="button" class="btn btn-primary">Download</button>
-    <p>
-    Download – clicking on this button downloading the file on your local machine. 
-    <span style="font-weight: 700;">Be aware that if you click download before file correction – you will download the same file which was uploaded!</span>
-    </p>
-
-    <button type="button" class="btn btn-danger">Delete</button>
-    <p>
-    Delete – clicking on this button deleting current record from list and what is more important from the DataBase. 
-    <span style="color:green; font-weight: 700;">Is highly recommended to delete items after correction to save space on the server.</span>
-    </p>
     
 {% endblock %}
